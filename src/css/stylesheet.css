@@ -1,0 +1,239 @@
+.outline-div {
+    display: flex;
+    align-items: center;
+    
+    border-color:pink;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    justify-content: center;
+  
+  }
+  .link-signin{
+    margin-left: 25px;
+    margin-top: 250px;
+  }
+  .login-title-span{
+    background-image: linear-gradient(to left, violet, indigo, green, blue, yellow, orange, red);
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    font-size: 1.7em;
+    color: transparent;
+    margin-top: 24px;
+    margin-left: 10em;
+  }
+  
+  .outputlabel{
+      
+      height: 2.7em;
+  }
+  .outputlabel-login{
+    height: 2.7em;
+  }
+  .password-form{
+    width: 214.5px;
+    margin-top: 10px;
+    margin-left: 0;
+    margin-right: 10px;
+    height: 0em !important;
+  }
+ 
+  .container-for-all-data {
+    border: 1px solid lightblue;
+    border-radius: 10px;
+    margin-top: 0px;
+    
+    margin-right: 150px;
+    margin-left: 150px;
+    width: 770px;
+     height: 600px;
+     }
+     .title-span{
+      background-image: linear-gradient(to left, violet, indigo, green, blue, yellow, orange, red);
+      -webkit-background-clip: text;
+      -moz-background-clip: text;
+      background-clip: text;
+      font-size: 1.7em;
+      color: transparent;
+      margin-top: 24px;
+    }
+    .title-div{
+      margin-top:20px;
+      margin-left: 10px;
+      width: 200px;
+     height: 50px;
+    }
+    .heading-span{
+      font-family: sans-serif;
+      -webkit-background-clip: text;
+      -moz-background-clip: text;
+      background-clip: text;
+      font-size: 1.5em;
+      margin-top: 20px;
+    }
+   .login-heading{
+     width: 12em;
+    color: #202124;
+    padding-bottom: 0;
+    padding-top: 16px;
+    font-family: 'Google Sans','Noto Sans Myanmar UI',arial,sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.3333;
+    margin-bottom: 0;
+    margin-top: 0;
+    margin-left: 14em;
+   }
+   
+    .heading{
+      padding:0px 0px 0px ;
+    }
+    .form-div{
+      width: 465px;
+     
+      height: 500px;
+      text-align: left;
+    
+    }
+    .firstname{
+      width: 25ch;
+    }
+    .lastname{
+      width: 25ch;
+    }
+    
+    
+    .passwordholder-box{
+      width: 500px !important;
+    }
+  .next-button{
+    display: flex;
+    width: 500px;
+    float: right;
+    padding-bottom:150px !important;
+    align-content: space-around;
+    flex-wrap: wrap;
+    flex-direction:row ;
+    
+  }
+  .login-button{
+    display: flex;
+    width: 200px;
+    float: right;
+    padding-bottom:150px !important;
+    align-content: space-around;
+    flex-wrap: wrap;
+    flex-direction:column ;
+  }
+  .image{
+    width: 25px;
+    height: 52px;
+    margin-right: 150px;
+    margin-top: 150px;
+  }
+  .fundo-image-div{
+    
+    justify-content: end;
+    align-content: center;
+    flex-wrap: wrap;
+    display: flex;
+    width: 18em;
+    margin-left: auto;
+  }
+  .fundo-image{
+    width:14em;
+     height:12em;
+     padding-right: 2em;
+  }
+  
+  @media only screen and (max-width: 900px) {
+    /* For tablets: */
+    .container-for-all-data{
+      width: 50.3%;
+    }
+    .username-box{
+      width: 70%;
+     
+    }
+    .passwordholder-box-login{
+      width: 30%;
+     
+      height: 50px;
+    }
+    .login-title-span{
+      margin-left: 50%;
+    }
+    .login-heading{
+      margin-left: 50%;
+    }
+    
+    .login-button{
+      display: flex;
+      width: 200px;
+      float: inherit;
+      padding-bottom: 150px!important;
+      flex-wrap: wrap;
+    }
+    .outputlabel-login{
+      width: 50%;
+    }
+    
+    .fundo-image-div{
+      display:none !important;
+    }
+    .fundo-image{
+      width:0em ;
+      height:0em;
+      
+    }
+    .username{
+      width:50% !important;
+      position: relative;
+    }
+    .password{
+      width:15% !important;
+      position: relative;
+    }
+    .next-button{
+      position: absolute;
+      
+    }
+    .login-button{
+      margin-top: 35px;
+     
+    }
+
+  }
+  
+  @media only screen and (min-width: 900px) {
+    /* For mobile: */
+    .title-div {
+      width: 200px;
+      margin-top:20px;
+      margin-left:10px;
+      height:50px;
+     }
+    .heading-span{
+     font: size 1.5em;
+     margin: top 20px;
+     }
+     .fundo-image-div{
+     width:30%;
+    
+    }
+    .fundo-image{
+      width:80% ;
+      height:70%;
+      
+    }
+    .form-div {
+     width:465px;
+     height:500px;
+     text-align:left;
+    }
+    .username{
+      width:100%;
+      position: relative;
+    }
+  }
+  
