@@ -1,0 +1,16 @@
+.app-bar{
+    position:"fixed";
+    
+}
+.menu-icon{
+    color:"inherit"              
+}
+.appbar-icons{
+    width: 114px;
+    height: 48px;
+    border:solid brown;
+}
+.notes{
+    width: 280px !important;
+    height:48px !important;
+}

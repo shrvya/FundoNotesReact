@@ -1,31 +1,33 @@
 import * as React from "react";
 import TextField from '@mui/material/TextField';
-import "../css/stylesheet.css"
+import "../css/reset.css"
 import { useState } from "react";
 import Button from '@mui/material/Button';
 import image from "../asset/fundo.png"
 import Box from "@mui/material/Box";
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
-import { users, loginusers } from "../service/urls";
+import {resetusers } from "../service/urls";
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import { validEmail, validPassword } from './validation';
 import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-
-export const Login = () => {
+import {  useParams } from "react-router-dom";
+export const Reset = () => {
   const [values, setValues] = React.useState({
     password: '',
     showPassword: false,
   });
 
-  const [username, setusername] = useState("");
+ 
   const [password, setPassword] = useState("");
-  const [userError, setuserError] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordError, setPasswordError] = useState(false);
-  const data = { email: username, password: password }
+  const [confirmPasswordError, setPasswordConfirmError] = useState(false);
+  const {token}=useParams();
+  const data = {  password: password }
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
@@ -43,53 +45,44 @@ export const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    setuserError(false);
     setPasswordError(false);
-    // setPasswordConfirmError(false);
-
-    if (!validEmail.test(username)) setuserError(true);
+     setPasswordConfirmError(false);
     if (!validPassword.test(password)) setPasswordError(true);
+    if (password !== confirmPassword) {
+        setPasswordConfirmError(true);
+      
+      }
 
-    loginusers(data)
-
-    //  axiosfunction(data);
+      if (password === confirmPassword) {
+        alert("Succefully reset password")
+        resetusers(token,data);
+      }
+    
+    
   };
+  const handleClickShowConfirmPassword = () => {
+    setValues({
+      ...values,
+      showconfirmPassword: !values.showconfirmPassword,
+      // checkTick: isShowPasswordChecked,
+    });
+  }
   return (
     <main>
-      <div className="outline-div" >
-        <div className="container-for-all-data">
-          <div className="title-div">
-            <span className="login-title-span">FundoNotes</span>
-            <h5 className="login-heading">
+      <div className="reset-outline-div" >
+        <div className="reset-container-for-all-data">
+          <div className="reset-title-div">
+            <span className="reset-title-span">FundoNotes</span>
+            <h5 className="reset-heading">
 
-              <span className="heading-span"> Sign in</span>
+              <span className="reset-heading-span"> Reset pin</span>
             </h5>
             <div className="form-div">
               <Box className="username-box" component="form" sx={{ '& > :not(style)': { m: 1, width: '50ch' }, }}
                 noValidate
                 autoComplete="off"
               >
-                <TextField
-                  className="username"
-                  label="Email"
-                  id="Email"
-                  size="small"
-                  fullWidth
-                  helperText={
-                    userError
-                      ? "Invalid email"
-                      : "You can use letters,numbers & periods"
-                  }
-                  // fullWidth
-                  onChange={(e) => setusername(e.target.value)}
-                // InputProps={{
-                //   endAdornment: (
-                //     <InputAdornment position="end">@gmail.com</InputAdornment>
-                //   ),
-                // }}
-
-                />
+               
               </Box>
 
               <Box className="passwordholder-box-login" component="form" sx={{ '& > :not(style)': { m: 1, width: '28ch' }, }}
@@ -97,16 +90,11 @@ export const Login = () => {
                 autoComplete="off"
               >
                 <FormControl sx={{ m: 1, width: '20ch', height: '10ch' }} variant="outlined">
-                  <InputLabel className="inputlabel" htmlFor="outlined-adornment-password">Password</InputLabel>
-                  <OutlinedInput className="outputlabel-login"
+                  <InputLabel className="reset-inputlabel" htmlFor="outlined-adornment-password">Password</InputLabel>
+                  <OutlinedInput className="outputlabel-reset"
                     id="outlined-adornment-password"
                     type={values.showPassword ? 'text' : 'password'}
-                    // value={values.password}
-
-                    // onChange={(e) => {
-                    //   setPassword(e.target.value);
-
-                    // }}
+                  
                     onChange={(e) => {
                       setPassword(e.target.value);
 
@@ -131,18 +119,46 @@ export const Login = () => {
                     label="Password"
                   />
                 </FormControl>
+                <FormControl className="password" sx={{ m: 1, width: '20ch', height: '10ch' }} variant="outlined">
+                    <InputLabel className="reset-confirm-inputlabel" htmlFor="outlined-adornment-password">Confirm</InputLabel>
+                    <OutlinedInput className="outputlabel-reset"
+                      id="outlined-adornment-confirm-password"
+                      type={values.showconfirmPassword ? 'text' : 'confirmpassword'}
+                      // value={values.confirmPassword}
+                      // onChange={handleChange('confirmPassword')}
+                      endAdornment={
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowConfirmPassword}
+                            onMouseDown={handleMouseDownPassword}
+                            edge="end"
+                          >
+                            {values.showconfirmPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      }
+                      type={values.showPassword ? "text" : "password"}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      error={confirmPasswordError}
+                      helperText={confirmPasswordError ? "Password doesnt match" : " "}
+                      label="Confirm"
+                    />
+                  </FormControl>
+
+
 
               </Box>
-
-              <div className="login-button">
-                <Button onClick={handleSubmit} variant="contained">Login</Button>
+              
+              <div className="reset-button">
+                <Button onClick={handleSubmit} variant="contained">Reset</Button>
               </div>
             </div>
 
           </div>
-          <div className="fundo-image-div">
+          {/* <div className="fundo-image-div">
             <img className="fundo-image" src={image} style={{ verticalAlign: 'middle' }} />
-          </div>
+          </div> */}
         </div>
       </div>
     </main>

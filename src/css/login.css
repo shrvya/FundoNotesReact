@@ -1,0 +1,146 @@
+.login-outline-div {
+    display: flex;
+    align-items: center;
+    
+    border-color:pink;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    justify-content: center;
+  
+  }
+  .logins-heading-span{
+    font-family: sans-serif;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    font-size: 1em;
+    margin-top: 20px;
+  }
+
+ 
+  .login-heading{
+    padding:0px 0px 0px ;
+  }
+  .logins-title-span{
+    background-image: linear-gradient(to left, violet, indigo, green, blue, yellow, orange, red);
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    font-size: 1.7em;
+    margin-left: 5px !important;
+    color: transparent;
+    margin-top: 24px;
+    margin-left: 8ch !important;
+  }
+  .login-container-for-all-data {
+    border: 1px solid lightblue;
+    border-radius: 10px;
+    margin-top: 40px;
+    
+    margin-right: 150px;
+    margin-left: 150px;
+    width: 448px;
+     height: 400px;
+     }
+     .form-div{
+        width: 400px;
+       
+        height: 500px;
+        text-align: left;
+      
+      }
+      .outputlabel-login{
+          width:300px;
+          margin-left: 5ch !important; 
+      }
+      .logins-username-box{
+          width:300px;
+          margin-left: 5ch; 
+      }
+      .logins-username{
+          width:300px !important;
+          align-content: center;
+      }
+      .inputlabel{
+        width:280px !important;
+        margin-left: 5ch !important; 
+      }
+.login-title-span{
+    background-image: linear-gradient(to left, violet, indigo, green, blue, yellow, orange, red);
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    font-size: 1.7em;
+    color: transparent;
+    margin-top: 24px;
+    margin-left: 10em;
+  }
+  .outputlabel-login{
+    height: 2.7em;
+  }
+  .logins-heading{
+    width: 8em;
+   color: #202124;
+   padding-bottom: 0;
+   padding-top: 16px;
+   font-family: 'Google Sans','Noto Sans Myanmar UI',arial,sans-serif;
+   font-size: 20px;
+   font-weight: 400;
+   line-height: 1.3333;
+   margin-bottom: 0;
+   margin-top: 0;
+   
+   padding-left: 15ch;
+  }
+  .login-button{
+    display: flex;
+    width: 200px;
+    float: right;
+    padding-bottom:150px !important;
+    align-content: space-around;
+    flex-wrap: wrap;
+    flex-direction:column ;
+  }
+  .login-image-div{
+    
+    justify-content: end;
+    align-content: center;
+    flex-wrap: wrap;
+    display: flex;
+    width: 18em;
+    margin-left: auto;
+  }
+  .login-image{
+    width:14em;
+     height:12em;
+     padding-right: 2em;
+  }
+  @media only screen and (max-width: 900px) {
+    .passwordholder-box-login{
+        width: 30%;
+       
+        height: 50px;
+      }
+      .login-title-span{
+        margin-left: 50%;
+      }
+      .login-heading{
+        margin-left: 50%;
+      }
+      
+      .login-button{
+        display: flex;
+        width: 200px;
+        float: inherit;
+        padding-bottom: 150px!important;
+        flex-wrap: wrap;
+      }
+      .outputlabel-login{
+        width: 50%;
+      }
+      .login-button{
+        margin-top: 35px;
+       
+      }
+      
+  }

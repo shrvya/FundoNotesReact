@@ -1,4 +1,5 @@
-.outline-div {
+
+   .outline-div {
     display: flex;
     align-items: center;
     
@@ -8,9 +9,82 @@
     justify-content: center;
   
   }
+  .register-username{
+    
+  }
+  .register-username-box{
+    
+  }
+  .forgot-username-box{
+    
+  
+    
+  }
+  .forgot-form-div{
+  
+   height:150px;
+   margin-top: 20px;
+  }
+  .link-signin{
+    text-size-adjust: 10px;
+    
+  } */
+   .link-createaccount{
+ 
+    width:600px;
+    height: 300px;
+    background-color: pink;
+    border: solid blue;
+    padding-left: 6em;
+    align-self: center;
+    
+ 
+;
+  }
+  .forgot-para{
+    padding-left: 10px;
+  }
+  .forgotHeadingspan{
+    font-family: sans-serif;
+    
+    font-size: 1.7em;
+   margin-top: 20px; 
+ /* padding:4px 6px 6px 30px;
+  */
+padding-bottom: 12px;
+  padding-left: 35px;
+    align-self: center;
+    
+    float:left;
+    text-align: center;
+    width: 600px;
+
+  } 
+  .forgot-button{
+    display: flex;
+    width: 200px;
+    float: right;
+    padding-bottom:40px !important;
+    align-content: space-around;
+    flex-wrap: wrap;
+    flex-direction:column ;
+    margin-top: -2.5em;
+    margin-right: 250px;
+  }
+  .forgot-title-span{
+    background-image: linear-gradient(to left, violet, indigo, green, blue, yellow, orange, red);
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    font-size: 1.7em;
+    color: transparent;
+    margin-top: 30px !important;
+    padding-top:50px ;
+    margin-left: 10em;
+  }
   .link-signin{
     margin-left: 25px;
-    margin-top: 250px;
+    margin-top: 10px;
   }
   .login-title-span{
     background-image: linear-gradient(to left, violet, indigo, green, blue, yellow, orange, red);
@@ -202,7 +276,18 @@
       margin-top: 35px;
      
     }
-
+    .forgotHeadingspan{
+      width: 70%;
+      /* padding-left: 50%; */
+     } 
+     .forgot-title-span{
+       margin-left: 30%;
+     }
+     .forgot-button{
+      margin-top: 0.5em;
+      margin-right:25px !important;
+     
+    }
   }
   
   @media only screen and (min-width: 900px) {

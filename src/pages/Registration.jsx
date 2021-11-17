@@ -44,7 +44,7 @@ export const Registration = () => {
     setLastNameError(false);
     setEmailError(false);
     setPasswordError(false);
-    // setPasswordConfirmError(false);
+     setPasswordConfirmError(false);
     if (!validfirstname.test(firstName)) setFirstNameError(true);
     if (!validlastname.test(lastName)) setLastNameError(true);
     if (!validEmail.test(email)) setEmailError(true);
@@ -79,7 +79,7 @@ export const Registration = () => {
     event.preventDefault();
   };
   return (
-    <main>
+    <>
       <div className="outline-div" >
         <div className="container-for-all-data">
           <div className="title-div">
@@ -108,12 +108,12 @@ export const Registration = () => {
                   helperText={lastNameError ? "Invalid last name" : ""}
                   onChange={(e) => setLastName(e.target.value)}
                 />
-                <Box className="username-box" component="form" sx={{ '& > :not(style)': { m: 1, width: '50ch' }, }}
+                <Box className="register-username-box" component="form" sx={{ '& > :not(style)': { m: 1, width: '50ch' }, }}
                   noValidate
                   autoComplete="off"
                 >
                   <TextField
-                    className="username"
+                    className="register-username"
 
                     label="username"
                     id="username"
@@ -145,8 +145,7 @@ export const Registration = () => {
                     <OutlinedInput className="outputlabel"
                       id="outlined-adornment-password"
                       type={values.showPassword ? 'text' : 'password'}
-                      // value={values.password}
-                      //  onChange={handleChange('password')}
+                      
                       onChange={(e) => {
                         setPassword(e.target.value);
 
@@ -212,7 +211,7 @@ export const Registration = () => {
                 </Box>
                 {/* <FormControlLabel control={<Checkbox defaultChecked />} label="Show password" /> */}
                 <div className="link-signin">
-                  <Link to="/Login">sign in</Link>
+                  <Link to="/Login">Login</Link>
                 </div>
                 <div className="next-button">
 
@@ -232,7 +231,7 @@ export const Registration = () => {
 
       </div>
 
-    </main>
+    </>
   );
 
 
