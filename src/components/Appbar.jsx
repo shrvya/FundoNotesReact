@@ -1,334 +1,162 @@
-import * as React from 'react';
-import '../css/appbar.css'
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Avatar from '@mui/material/Avatar';
-import Logo from '../asset/Logo.png'
-import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
-import RefreshIcon from '@mui/icons-material/Refresh';
-import Badge from '@mui/material/Badge';
-import ViewStreamSharpIcon from '@mui/icons-material/ViewStreamSharp';
-import SettingsSharpIcon from '@mui/icons-material/SettingsSharp';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import { styled, useTheme } from '@mui/material/styles';
-import MuiDrawer from '@mui/material/Drawer';
-import MuiAppBar from '@mui/material/AppBar';
-import List from '@mui/material/List';
-import CssBaseline from '@mui/material/CssBaseline';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
-import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
-import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
-import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
-import DeleteIcon from '@mui/icons-material/Delete';
-const drawerWidth = 240;
+import React, { useState, useEffect ,  useRef } from "react";
+import { styled } from "@mui/material/styles";
+import Logo from "../asset/Logo.png";
+import {
+  Toolbar,
+  Typography,
+  IconButton,
+  TextField,
+  InputAdornment,
+} from "@mui/material";
+import MuiAppBar from "@mui/material/AppBar";
+import SearchIcon from "@mui/icons-material/Search";
+import MenuIcon from "@mui/icons-material/Menu";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import RefreshOutlinedIcon from "@mui/icons-material/RefreshOutlined";
+import SplitscreenOutlinedIcon from "@mui/icons-material/SplitscreenOutlined";
+import { useDetectOutsideClick } from '../pages/useDetectOutsideClick';
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { setFilter } from "../action/filter";
+import { Menu } from "../pages/Menu";
+import Popover from '@mui/material/Popover';
 
-const openedMixin = (theme) => ({
-  width: drawerWidth,
- 
-  overflowX: 'hidden',
-});
-
-const closedMixin = (theme) => ({
-  
-  overflowX: 'hidden',
-  width: `calc(${theme.spacing(7)} + 1px)`,
-  [theme.breakpoints.up('sm')]: {
-    width: `calc(${theme.spacing(9)} + 1px)`,
-  },
-});
-
-const DrawerHeader = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'flex-end',
-  padding: theme.spacing(0, 1),
-  ...theme.mixins.toolbar,
-}));
 const AppBar = styled(MuiAppBar, {
-    shouldForwardProp: (prop) => prop !== 'open',
-  })(({ theme, open }) => ({
-    zIndex: theme.zIndex.drawer + 1,
-    ...(open && {
-      marginLeft: drawerWidth,
-      width: `calc(100% - ${drawerWidth}px)`,
-    }),
-  }));
-  
-  const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-    ({ theme, open }) => ({
-      width: drawerWidth,
-      flexShrink: 0,
-      whiteSpace: 'nowrap',
-      boxSizing: 'border-box',
-      ...(open && {
-        ...openedMixin(theme),
-        '& .MuiDrawer-paper': openedMixin(theme),
-      }),
-      ...(!open && {
-        ...closedMixin(theme),
-        '& .MuiDrawer-paper': closedMixin(theme),
-      }),
-    }),
-  );
-  
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: '#ebe8e8',
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(3),
-    width: 'auto',
-  },
+  shouldForwardProp: (prop) => prop !== "open",
+})(({ theme }) => ({
+  zIndex: theme.zIndex.drawer + 1,
+  transition: theme.transitions.create(["width", "margin"], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  spacing: 2,
+  backgroundColor: "white",
 }));
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
+const Appbar = ({ handleDrawerOpen, title,}) => {
+  const [search, setSearch] = useState("");
+  const myNotes = useSelector((state) => state.allNotes.notes);
+  const dispatch = useDispatch();
+  const dropdownRef = useRef(null);
+ 
+  const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
+  const onClickSetting = () => setIsActive(!isActive);
 
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
-    },
-  },
-}));
-
-export default function Appbar() {
+const handleSearch = (searchValue) => {
+    setSearch(searchValue);
+  };
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
-
-  const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-  const handleProfileMenuOpen = (event) => {
+  const handleSetClick = (event) => {
     setAnchorEl(event.currentTarget);
+    
   };
-
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
-
-  const handleMenuClose = () => {
+  const handleSetClose = () => {
     setAnchorEl(null);
-    handleMobileMenuClose();
-  };
-  const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
-
-  const handleDrawerOpen = () => {
-    setOpen(true);
   };
 
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
-  const menuId = 'primary-search-account-menu';
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-    </Menu>
-  );
-
-  const mobileMenuId = 'primary-search-account-menu-mobile';
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <MenuItem>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
-    </Menu>
-  );
-  const menuItems = [
-    { 
-      text: 'Notes', 
-      icon: <LightbulbOutlinedIcon/>, 
-      path: '/' 
-    },
-    { 
-      text: 'Remainders', 
-      icon: < NotificationsNoneOutlinedIcon />, 
-      path: '/create' 
-    },
-    { 
-      text: 'Edit labels', 
-      icon: <CreateOutlinedIcon />, 
-      path: '/create' 
-    },
-    { 
-      text: 'Archieve', 
-      icon: < ArchiveOutlinedIcon/>, 
-      path: '/login' 
-    },
-    { 
-      text: 'Trash', 
-      icon: <DeleteIcon />, 
-      path: '/create' 
-    },
-  ];
+  const open = Boolean(anchorEl);
+  const id = open ? "set-popover" : undefined;
+  useEffect(() => {
+    dispatch(setFilter(
+        myNotes.filter((item) => {
+          return item.title.toLowerCase().includes(search.toLowerCase());
+        })
+      )
+    );
+  }, [search, myNotes]);
+  function refreshPage() {
+    window.location.reload(false);
+  }
+  const [mode, setMode] = React.useState('light');
+ 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <AppBar position="fixed" open={open}style={{ background: "#ffffff" }}>
-        <Toolbar>
-          <IconButton 
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{
-              marginRight: '36px',
-              ...(open && { display: 'none' }),
-               color: "#4d4c4c" 
-            }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Avatar alt="FundooNotes" src={Logo} variant="square" />
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { xs: "none", sm: "block" } }}
-          >
-            &nbsp;
-            <span className="fundooNotesDash">FundooNotes</span>
-          </Typography>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon sx={{ color: "#4d4c4c" }} />
-            </SearchIconWrapper>
-            <StyledInputBase
-              style={{ maxWidth: 800, color: "#6e6a6a" }}
-              placeholder="Search"
-              inputProps={{ "aria-label": "search" }}
-              color="secondary"
-              margin="dense"
-            />
-          </Search>
-          <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <IconButton size="large" color="inherit">
-              <Badge>
-                <RefreshIcon sx={{ color: "#4d4c4c" }} />
-              </Badge>
-            </IconButton>
-            <IconButton size="large" color="inherit">
-              <Badge>
-                <ViewStreamSharpIcon sx={{ color: "#4d4c4c" }} />
-              </Badge>
-            </IconButton>
-            <IconButton size="large" color="inherit">
-              <Badge>
-                <SettingsSharpIcon sx={{ color: "#4d4c4c" }} />
-              </Badge>
-            </IconButton>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle sx={{ fontSize: 40, color: "#4d4c4c" }} />
-            </IconButton>
-          </Box>
-        </Toolbar>
-      </AppBar>  {renderMobileMenu}
-      {renderMenu}
-    
-      <Drawer variant="permanent" open={open}>
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            <MenuIcon />
-          </IconButton>
-        </DrawerHeader>
+    <AppBar position="fixed" style={{background:mode}} >
+      <Toolbar style={{ color: "rgba(0, 0, 0, 0.54)" }}>
+        <IconButton
+          aria-label="open drawer"
+          onClick={handleDrawerOpen}
+          edge="start"
+          sx={{
+            marginRight: "30px",
+          }}
+        >
+          <MenuIcon />
+        </IconButton>
+        <img src={Logo} alt="" style={{ width: "2em", height: "2.5em" }} />
+        <Typography
+          variant="h6"
+          noWrap
+          style={{ fontWeight: "bold", marginLeft: "10px" }}
+          component="div"
+        >
+          {title}
+        </Typography>
+        <TextField
+          placeholder="Search…"
+          style={{ width: "50%", margin: "auto", backgroundColor: "#F5F5F5" }}
+          variant="outlined"
+          size="small"
+          onChange={(e) => handleSearch(e.target.value)}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+            style: { height: "44px" },
+          }}
+        />
+        <RefreshOutlinedIcon 
+        fontSize="medium" 
+        style={{ marginLeft: "15px" }}
+        onClick={refreshPage}
+         />
+        <SplitscreenOutlinedIcon
+          fontSize="medium"
+          style={{ marginLeft: "15px" }}
+        />
        
-
-        <List>
-          {menuItems.map((item) => (
-            <ListItem 
-              button 
-              key={item.text} 
-             // onClick={() => history.push(item.path)}
-              //className={location.pathname == item.path ? classes.active : null}
-            >
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.text} />
-            </ListItem>
-          ))}
-        </List>
+        <SettingsOutlinedIcon
+        aria-describedby={id}
+          fontSize="medium"
+          onClick={handleSetClick}
+          style={{ marginLeft: "15px" }}
+         
+        />
+        <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleSetClose}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left"
+        }}
+      >
+        <Typography sx={{ paddingLeft:2}}>Settings</Typography>
+       
+        <Typography sx={{ paddingLeft:2 }}>Enable Dark theme</Typography> 
+        <Typography sx={{ paddingLeft:2 }}>Send Feedback</Typography> 
+        <Typography sx={{ paddingLeft:2 }}>Help</Typography>
+        <Typography sx={{ paddingLeft:2 }}>App Downloads</Typography>
+        <Typography sx={{ paddingLeft:2 }}>Keyboard Shortcuts</Typography>
+      </Popover>
+      
         
         
-      </Drawer>
-   </Box>
+        <div className="appbar-div">
+          
+          <AccountCircleIcon fontSize="large" />
+        </div>
+        
+      </Toolbar>
+      
+     
+    </AppBar>
     
   );
-}
+};
+
+export default Appbar;

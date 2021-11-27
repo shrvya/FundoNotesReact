@@ -25,3 +25,32 @@ export const getNotes = (url, token) => {
             Authorization: token
         }
     }))}
+   export const createNotes = (url, data, token) => {
+        return(axios({
+            method: "post",
+            url: url,
+            data: data,
+            headers: {
+                Authorization: token
+            }
+        }))
+    }
+    export const updateNotes = (url, data, token) => {
+        return(axios({
+            method: "put",
+            url: url,
+            data: data,
+            headers: {
+                Authorization: token
+            }
+        }))
+    }
+   export const deleteNotes=(url,token)=>{
+        return(axios({
+            method:"delete",
+            url:url,
+            headers: {
+                Authorization: token
+            }
+        }))
+    }

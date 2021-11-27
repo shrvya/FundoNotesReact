@@ -1,3 +1,105 @@
+// import { Box, Grid, Card, CardContent, Typography } from "@mui/material";
+// import React from "react";
+// import  { useState } from "react";
+// import '../css/card.css'
+// import { useSelector } from "react-redux";
+// import AddAlertOutlinedIcon from '@mui/icons-material/AddAlertOutlined';
+// import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
+// import PaletteOutlinedIcon from '@mui/icons-material/PaletteOutlined';
+// import PanoramaOutlinedIcon from '@mui/icons-material/PanoramaOutlined';
+// import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
+// import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
+// import PushPinOutlinedIcon from '@mui/icons-material/PushPinOutlined';
+// import {  useEffect, useRef } from "react";
+// import ReactDOM from "react-dom";
+// import { updateNote } from "../action/filter";
+
+// function useComponentVisible(initialIsVisible) {
+//   const [isComponentVisible, setIsComponentVisible] = useState(
+//     initialIsVisible
+//   );
+//   const ref = useRef(null);
+
+ 
+//   const handleClickOutside = event => {
+//     if (ref.current && !ref.current.contains(event.target)) {
+//       setIsComponentVisible(false);
+//     }
+//   };
+
+//   useEffect(() => {
+   
+//     document.addEventListener("click", handleClickOutside, true);
+//     return () => {
+     
+//       document.removeEventListener("click", handleClickOutside, true);
+//     };
+//   });
+
+//   return { ref, isComponentVisible, setIsComponentVisible };
+// }
+
+// const Note = () => {
+//   const {
+//     ref,
+//     isComponentVisible,
+//     setIsComponentVisible
+//   } = useComponentVisible(true);
+//   const [icons, setshowicons] = useState(false);
+//   const [click, showicons] = useState(false);
+  
+//   const handleShowIcon = () => {
+//     showicons((prevState) => {
+//       return !prevState;
+//     });
+//   };
+  
+
+//    const myNotes = useSelector((state) => state.allNotes.filteredNotes);
+//   return (
+//     //onclick 
+//     <Box sx={{ margin:"5% auto " ,width:"80%"}} ref={ref} >
+//       <Grid container spacing={4}>
+//         {myNotes.map((item) => {
+//           return (
+
+//             <Grid item xs={12} sm={6} md={3} key={item._id} >
+            
+//                 <Card className="notesCard" >
+//                 <CardContent 
+//                  onMouseEnter={() => setshowicons(true)}   onMouseLeave={() => setshowicons(false)} >
+//                   <Typography variant="h5">{item.title}</Typography>
+//                   <Typography sx={{ mb: 1.5 }} color="text.secondary">
+//                     {item.content}
+//                   </Typography>
+//                 </CardContent>
+//                 {isComponentVisible &&(icons || click )? (<Grid container 
+//                  direction="row"
+//                  justifyContent="space-between">
+//                 <AddAlertOutlinedIcon/>
+//                 <PersonAddAltIcon/>
+//                 <PaletteOutlinedIcon/>
+//                 <PanoramaOutlinedIcon/>
+//                 < ArchiveOutlinedIcon/>
+//                 < MoreVertOutlinedIcon/>
+//                  </Grid>):null}
+                
+//               </Card>
+            
+              
+//             </Grid>
+//           );//===
+
+
+//         })}
+//       </Grid>
+      
+//     </Box>
+//   );
+// };
+
+// export default Note;
+
 import {
   Box,
   Grid,
@@ -27,11 +129,7 @@ import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 import PushPinOutlinedIcon from '@mui/icons-material/PushPinOutlined';
 import { IconButton } from "@mui/material";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import Popup from "reactjs-popup";
-import Palette from "./Pallete";
-import Brightness1Icon from '@mui/icons-material/Brightness1'
-import Popover from '@mui/material/Popover';
-import Brightness1OutlinedIcon from '@mui/icons-material/Brightness1Outlined';
+
 function useComponentVisible(initialIsVisible) {
   const [isComponentVisible, setIsComponentVisible] = useState(
     initialIsVisible
@@ -74,17 +172,15 @@ const Note = ({value}) => {
   
   const [open, setOpen] = React.useState(false);
   const [hover, setHover] = React.useState(false);
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  
   const [title, setTitle] = React.useState("")
   const [content, setContent] = React.useState("")
   const [noteId, setNoteId] = React.useState("")
-  const [color,setColor]=React.useState("White")
   const dispatch = useDispatch();
   const data = {
       title: title,
       content: content,
-      isTrash:false,
-      color:color
+      isTrash:false
   };
   const handleClickOpen = (item) => {
     
@@ -92,7 +188,7 @@ const Note = ({value}) => {
       setContent(item.content);
       setNoteId(item._id)
       setOpen(true);
-      setColor(item.color)
+
   };
 
   const handleClose = () => {
@@ -101,36 +197,24 @@ const Note = ({value}) => {
 
 
   const handleUpdate = () => {
-    
+    console.log(noteId);
       update(data, noteId).then((res) => {
         
           dispatch(updateNote(res))
-         
-      }).catch((err) => console.log(err));
+          console.log(res);
+      }).catch((err) => console.log(err.message));
       handleClose()
   }
-  const handlePopClick = (event) => {
-    
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handlePopClose = () => {
-    setAnchorEl(null);
-  };
   const handleDelete=(item)=>{
     const dataDelete = {
         title: item.title,
         content: item.content,
-        isTrash:true,
-        color:item.color
+        isTrash:true
     };
     update(dataDelete, item._id).then((res) => {
-      console.log(res);
         dispatch(updateNote(res))
     }).catch((err) => console.log(err.message));
 }
-const popopen = Boolean(anchorEl);
-  const id = popopen ? 'simple-popover' : undefined;
   const notes = useSelector((state) => state.allNotes.filteredNotes);
   return((notes.length > 0) ? (
     <Box sx={{ margin:"5% auto " ,width:"80%"}}  >
@@ -141,11 +225,10 @@ const popopen = Boolean(anchorEl);
                 if (item.isTrash === false) {
                   return (
                       <Grid item
-                       xs={12} sm={6} md={3}
+                       xs={4}//
                           key={
                               item._id
                       }>
-                      
                           <Card className="notesCard"
                          
                            onMouseEnter={() => {
@@ -154,12 +237,13 @@ const popopen = Boolean(anchorEl);
                           onMouseLeave={() => {
                             setHover({ [index]: false });
                           }}
-                      
-                          style={{background:item.color}} 
                           
-                             
+                          
+                              // onClick={
+                              //     () => {
+                              //         handleClickOpen(item)
+                              //     }}
                           >
-                               
                              <Typography variant="h5" onClick={
                                         () => {
                                             handleClickOpen(item)
@@ -180,8 +264,15 @@ const popopen = Boolean(anchorEl);
                                         item.content
                                     } </Typography>
 
-                              
-                              
+                              {/* <Typography variant="h6">
+                                  {
+                                  item.title
+                              }</Typography>
+                              <Typography sx={{mb: 1.5}}
+                                  color="text.secondary">
+                                  {
+                                  item.content
+                              } </Typography> */}
                   {hover[index] ? (
                    <div style={{ display: "flex", justifyContent: "space-around" }}>
                   <IconButton size="small">
@@ -190,35 +281,9 @@ const popopen = Boolean(anchorEl);
                   <IconButton size="small">
                     <PersonAddAltIcon />
                   </IconButton>
-                  <IconButton size="small" onClick={handlePopClick}>
-                    <PaletteOutlinedIcon   />
+                  <IconButton size="small" >
+                    <PaletteOutlinedIcon  />
                   </IconButton>
-                  <Popover
-         id={id}
-         open={popopen}
-         anchorEl={anchorEl}
-         onClose={handlePopClose}
-         anchorOrigin={{
-           vertical: 'bottom',
-           horizontal: 'left',
-         }}>
-            <Grid container sx={{ p: 1 }}>
-          {Palette.map((colorItem,index)=>{
-            
-          return(
-            <Grid item xs={12} sm={3} md={3} sx={{width:"11px"}} key={index}>
-              <IconButton  onClick={()=>{setColor(colorItem.colorName);
-              
-                setTitle(item.title);
-                setContent(item.content);
-                setNoteId(item._id)
-                handleUpdate()
-               }}>
-          <Brightness1Icon style={{ color: colorItem.colorCode }} />
-          </IconButton>
-          </Grid>)})}
-           </Grid>
-      </Popover>
                   <IconButton size="small" >
                     <PanoramaOutlinedIcon  />
                   </IconButton>
@@ -227,13 +292,9 @@ const popopen = Boolean(anchorEl);
                   </IconButton>
                   <IconButton size="small"
                   
-                  onClick={()=>{
-                    console.log(item);
-                    handleDelete(item)}}
-                  
                   >
                     < DeleteOutlineOutlinedIcon 
-                  
+                  onClick={()=>{handleDelete(item)}}
                     />
                   </IconButton>
                 </div>
@@ -247,7 +308,7 @@ const popopen = Boolean(anchorEl);
                       </Grid>
 
                   );
-                 }
+                }
               })
           } </Grid>
           <div>
@@ -258,7 +319,7 @@ const popopen = Boolean(anchorEl);
                   hideBackdrop
               >
 
-                  <DialogContent  style={{background:color}}>
+                  <DialogContent>
                       <input className="title" type="text"
                           value={title}
                           onChange={
@@ -274,7 +335,7 @@ const popopen = Boolean(anchorEl);
                           name="content"
                           placeholder="Take a note..."/>
                   </DialogContent>
-                  <DialogActions style={{background:color}}s>
+                  <DialogActions>
                       <Button onClick={handleClose}>close</Button>
                       <Button onClick={handleUpdate}>Submit</Button>
                   </DialogActions>
@@ -290,5 +351,3 @@ const popopen = Boolean(anchorEl);
 };
 
 export default Note;
-
-// npm install --save selenium-webdriver chromedriver geckodriver
