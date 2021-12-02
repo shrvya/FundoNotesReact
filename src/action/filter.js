@@ -4,6 +4,13 @@ export const setFilter=(notes)=>{
      payload: notes,
     }
 }
+
+export const listView = (flag) => {
+  return {
+    type:"LIST_VIEW",
+    payload: flag,
+  };
+};
 export const setNotes=(notes)=>{
     return{
      type:"NOFILTER_NOTES",

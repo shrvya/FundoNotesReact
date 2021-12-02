@@ -7,7 +7,7 @@ import Sidebar from "../components/Sidebar";
 import { useDispatch } from "react-redux";
 import { setNotes } from "../action/filter";
 import AddNotes from "../components/AddNotes";
-
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {notes} from '../service/noteretrive';
 
 
@@ -35,8 +35,17 @@ export function MiniDrawer() {
               console.log(err);
           });
   };
+
+  // const [darkmode,setdarkmode]=useState("false")
+  // const dark= createTheme({
+  //   palette: {
+  //     mode: darkmode ? 'dark' : 'light',
+  //   },
+  // })
   
-  
+  // const handledark=()=>{
+  //  setdarkmode(!darkmode);
+  // }
   const handleDrawerOpen = () => {
     setOpen((prevState) => {
       return !prevState;
@@ -45,9 +54,9 @@ export function MiniDrawer() {
   
     return (
      
-      <div>
-<Appbar handleDrawerOpen={handleDrawerOpen} title={title}   />
-         <Sidebar open={open} handleTitle={handleTitle} handleDrawerOpen={handleDrawerOpen} />
+      <div className="fundodiv">
+<Appbar handleDrawerOpen={handleDrawerOpen} title={title}  />
+         <Sidebar open={open} handleTitle={handleTitle} handleDrawerOpen={handleDrawerOpen}  />
          <br/><br/><br/><br/>
          <AddNotes/>
          <Box component="main" sx={{ flexGrow: 1, p: 3, margin: "5% auto" }}>
@@ -55,7 +64,7 @@ export function MiniDrawer() {
         
       </Box>
         </div>
-          
+       
     );
 }
 

@@ -169,14 +169,7 @@ export const Registration = () => {
 
                       }
 
-                    // onChange={(e) => setPassword(e.target.value)}
-                    // error={passwordError}
-                    // helperText={
-                    //   passwordError
-                    //     ? "Invalid password"
-                    //     : "Use 8 or more characters with a mix of letters, numbers & symbols"
-                    // }
-                    //       label="Password"
+                    
                     />
                   </FormControl>
                   <FormControl className="password" sx={{ m: 1, width: '20ch', height: '10ch' }} variant="outlined">
@@ -184,8 +177,7 @@ export const Registration = () => {
                     <OutlinedInput className="outputlabel"
                       id="outlined-adornment-confirm-password"
                       type={values.showconfirmPassword ? 'text' : 'confirmpassword'}
-                      // value={values.confirmPassword}
-                      // onChange={handleChange('confirmPassword')}
+                      
                       endAdornment={
                         <InputAdornment position="end">
                           <IconButton
@@ -216,7 +208,7 @@ export const Registration = () => {
                 <div className="next-button">
 
 
-                  <Button onClick={handleSubmit} variant="contained">Next</Button>
+                  <Button id=" next-button"onClick={handleSubmit} variant="contained">Next</Button>
                 </div>
 
 

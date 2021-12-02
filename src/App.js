@@ -10,6 +10,7 @@ import {MiniDrawer} from "./pages/Fundokeep";
 
 function App() {
   return (
+    
     <div className="App">
     <Router>
         <Route path="/" exact component={Registration} />

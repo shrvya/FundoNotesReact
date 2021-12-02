@@ -5,9 +5,10 @@ import {
   CardContent,
   Typography,
   Button,
-  CardActions
+  CardActions,
+  CardMedia
 } from "@mui/material";
-import React from "react";
+import React, { Fragment } from "react";
 import '../css/card.css'
 import {useSelector} from "react-redux";
 import Dialog from '@mui/material/Dialog';
@@ -26,11 +27,14 @@ import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 import PushPinOutlinedIcon from '@mui/icons-material/PushPinOutlined';
 import { IconButton } from "@mui/material";
+import { styled } from '@mui/material/styles';
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import Popup from "reactjs-popup";
 import Palette from "./Pallete";
 import Brightness1Icon from '@mui/icons-material/Brightness1'
 import Popover from '@mui/material/Popover';
+import Badge from '@mui/material/Badge';
+import GridViewIcon from "@mui/icons-material/GridView";
 import Brightness1OutlinedIcon from '@mui/icons-material/Brightness1Outlined';
 function useComponentVisible(initialIsVisible) {
   const [isComponentVisible, setIsComponentVisible] = useState(
@@ -56,7 +60,9 @@ function useComponentVisible(initialIsVisible) {
 
   return { ref, isComponentVisible, setIsComponentVisible };
 }
-
+const Input = styled('input')({
+  display: 'none',
+});
 const Note = ({value}) => {
   const {
     ref,
@@ -86,6 +92,22 @@ const Note = ({value}) => {
       isTrash:false,
       color:color
   };
+  const handleClick = (event,item) => {
+    setTitle(item.title);
+    setContent(item.content);
+    setColor(item.color)
+    setNoteId(item._id)
+  };
+  const handleImage=(itemf)=>{
+    const formData = new FormData()
+    formData.append('title', title)
+    formData.append('content', content)
+    formData.append('color', color)
+    formData.append('profileImg', itemf)
+    update(formData, noteId).then((res) => {
+        dispatch(updateNote(res))
+    }).catch((err) => console.log(err.message));
+}
   const handleClickOpen = (item) => {
     
       setTitle(item.title);
@@ -129,19 +151,21 @@ const Note = ({value}) => {
         dispatch(updateNote(res))
     }).catch((err) => console.log(err.message));
 }
+
 const popopen = Boolean(anchorEl);
   const id = popopen ? 'simple-popover' : undefined;
   const notes = useSelector((state) => state.allNotes.filteredNotes);
+  const listView = useSelector((state) => state.allNotes.listView);
   return((notes.length > 0) ? (
     <Box sx={{ margin:"5% auto " ,width:"80%"}}  >
           <Grid container
-              spacing={4}>
+              spacing={4} justifyContent={listView ? "center" : null}>
               {
               notes.map((item,index) => {
                 if (item.isTrash === false) {
                   return (
                       <Grid item
-                       xs={12} sm={6} md={3}
+                       xs={12} md={listView ? 8 : 3}
                           key={
                               item._id
                       }>
@@ -159,6 +183,14 @@ const popopen = Boolean(anchorEl);
                           
                              
                           >
+                                  {(item.profileImg !== undefined ) ? (
+                    <CardMedia
+                      component="img"
+                      image={`http://localhost:4000/images/${item.profileImg}`}
+                      alt="dish"style={{  maxwidth: 238,
+                        maxHeight: 238 }}
+                    />
+                  ) : null}
                                
                              <Typography variant="h5" onClick={
                                         () => {
@@ -219,9 +251,22 @@ const popopen = Boolean(anchorEl);
           </Grid>)})}
            </Grid>
       </Popover>
-                  <IconButton size="small" >
-                    <PanoramaOutlinedIcon  />
+      <Fragment>
+      <label htmlFor="icon-button-file" >
+      <Input accept="image/*" id="icon-button-file" type="file"  onChange={(e)=>{     
+           handleImage(e.target.files[0]) }}
+           id="icon-button-file"
+           style={{ display: 'none', }}
+            />
+                  <IconButton size="small" color="secondary" 
+                  aria-label="upload picture"
+                   component="span"
+                   onClick={(e)=>{handleClick(e,item);}} >
+                    <PanoramaOutlinedIcon color="action" />
                   </IconButton>
+                  </label>
+      </Fragment>
+     
                   <IconButton size="small" >
                     < ArchiveOutlinedIcon  />
                   </IconButton>
@@ -254,7 +299,7 @@ const popopen = Boolean(anchorEl);
               <Dialog fullWidth maxWidth="sm"
                   open={open}
                   onClose={handleClose}
-                  // Allows other things to take focus
+                 
                   hideBackdrop
               >
 

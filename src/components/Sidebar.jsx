@@ -73,7 +73,7 @@ const Sidebar = ({ open, handleTitle, handleDrawerOpen }) => {
           <ListItemIcon>
             <LightbulbOutlinedIcon />
           </ListItemIcon>
-          <ListItemText primary="Notes" />
+          <ListItemText  primary="Notes" />
         </ListItem>
         <ListItem button onClick={() => handleTitle("Reminders")}>
           <ListItemIcon>

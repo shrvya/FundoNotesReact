@@ -1,7 +1,8 @@
 const initialState = {
     notes: [],
     filteredNotes:[],
-    trash:[]
+    trash:[],
+    listView: false,
   };
 export default function SearchReducer(state = initialState, action) {
 
@@ -11,6 +12,9 @@ export default function SearchReducer(state = initialState, action) {
             ...state,
              notes: action.payload
         }
+        case "LIST_VIEW":
+      return { ...state, 
+        listView: !state.listView };
         case "FILTER_NOTES" :
         return {
             ...state,
