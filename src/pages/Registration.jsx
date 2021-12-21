@@ -54,7 +54,7 @@ export const Registration = () => {
     }
     users(data)
 
-    //  axiosfunction(data);
+    
   };
 
   const handleChange = (prop) => (event) => {
@@ -71,7 +71,7 @@ export const Registration = () => {
     setValues({
       ...values,
       showconfirmPassword: !values.showconfirmPassword,
-      // checkTick: isShowPasswordChecked,
+      
     });
   }
 
@@ -118,14 +118,14 @@ export const Registration = () => {
                     label="username"
                     id="username"
                     size="small"
-                    // value={email}
+                    
                     fullWidth
                     helperText={
                       emailError
                         ? "Invalid email"
                         : "You can use letters,numbers & periods"
                     }
-                    // fullWidth
+                   
                     onChange={(e) => setEmail(e.target.value)}
                     InputProps={{
                       endAdornment: (

@@ -36,16 +36,7 @@ export function MiniDrawer() {
           });
   };
 
-  // const [darkmode,setdarkmode]=useState("false")
-  // const dark= createTheme({
-  //   palette: {
-  //     mode: darkmode ? 'dark' : 'light',
-  //   },
-  // })
-  
-  // const handledark=()=>{
-  //  setdarkmode(!darkmode);
-  // }
+ 
   const handleDrawerOpen = () => {
     setOpen((prevState) => {
       return !prevState;

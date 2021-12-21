@@ -29,16 +29,9 @@ const Trash = () => {
   const [open, setOpen] = React.useState(false);
   const [title,setTitle]=React.useState("Keep");
  
-  const [darkmode,setdarkmode]=useState("false")
-  const dark= createTheme({
-    palette: {
-      mode: darkmode ? 'dark' : 'light',
-    },
-  })
+
   
-  const handledark=()=>{
-   setdarkmode(!darkmode);
-  }
+  
   const handleDrawerOpen = () => {
     setOpen((prevState) => {
       return !prevState;
@@ -54,14 +47,11 @@ const handleClick=(title)=>{
 const handleTitle = (title) => {
   setTitle(title)
 }
-// const handleDrawerOpen = () => {
-//   setOpen((prevState) => {
-//     return !prevState;
-//   });
-// };
+
     return (
-      <ThemeProvider theme={dark}>
+    
     <div>
+
      
      <Appbar handleDrawerOpen={handleDrawerOpen} title={title}   />
          <Sidebar open={open} handleTitle={handleTitle} handleDrawerOpen={handleDrawerOpen} />
@@ -75,7 +65,7 @@ const handleTitle = (title) => {
      
         
     </div>
-    </ThemeProvider>
+
         )
 }
 export default Trash;

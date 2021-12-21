@@ -90,7 +90,8 @@ const Note = ({value}) => {
       title: title,
       content: content,
       isTrash:false,
-      color:color
+      color:color,
+      
   };
   const handleClick = (event,item) => {
     setTitle(item.title);
@@ -335,5 +336,3 @@ const popopen = Boolean(anchorEl);
 };
 
 export default Note;
-
-// npm install --save selenium-webdriver chromedriver geckodriver

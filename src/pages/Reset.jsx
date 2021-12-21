@@ -64,7 +64,7 @@ export const Reset = () => {
     setValues({
       ...values,
       showconfirmPassword: !values.showconfirmPassword,
-      // checkTick: isShowPasswordChecked,
+      
     });
   }
   return (
@@ -124,8 +124,7 @@ export const Reset = () => {
                     <OutlinedInput className="outputlabel-reset"
                       id="outlined-adornment-confirm-password"
                       type={values.showconfirmPassword ? 'text' : 'confirmpassword'}
-                      // value={values.confirmPassword}
-                      // onChange={handleChange('confirmPassword')}
+                   
                       endAdornment={
                         <InputAdornment position="end">
                           <IconButton
@@ -156,9 +155,7 @@ export const Reset = () => {
             </div>
 
           </div>
-          {/* <div className="fundo-image-div">
-            <img className="fundo-image" src={image} style={{ verticalAlign: 'middle' }} />
-          </div> */}
+         
         </div>
       </div>
     </main>

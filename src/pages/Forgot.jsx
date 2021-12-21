@@ -1,7 +1,3 @@
-
-//Fundo458^&*
-//fundoapptest@gmail.com
-
 import * as React from "react";
 import TextField from '@mui/material/TextField';
 import "../css/forgot.css"

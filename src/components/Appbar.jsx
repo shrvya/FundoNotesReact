@@ -6,6 +6,7 @@ import {
   Typography,
   IconButton,
   TextField,
+  Button,
   InputAdornment,
 } from "@mui/material";
 import MuiAppBar from "@mui/material/AppBar";
@@ -23,7 +24,7 @@ import { useDispatch } from "react-redux";
 import { setFilter,listView } from "../action/filter";
 import { Menu } from "../pages/Menu";
 import Popover from '@mui/material/Popover';
-
+import { Redirect } from "react-router";
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -52,19 +53,25 @@ const handleSearch = (searchValue) => {
   };
  
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [logout, setLogout] = useState(false);
   const handleSetClick = (event) => {
     setAnchorEl(event.currentTarget);
     
   };
+  
   const handleSetClose = () => {
     setAnchorEl(null);
   };
+ 
   const handleView = () => {
     dispatch(listView());
   };
   const open = Boolean(anchorEl);
   const id = open ? "set-popover" : undefined;
+  const handleLogout = () => {
 
+    setLogout(true);
+  };
   
   useEffect(() => {
     dispatch(
@@ -145,12 +152,20 @@ const handleSearch = (searchValue) => {
         )}
        
         <SettingsOutlinedIcon
-       aria-describedby={id}
-          fontSize="medium"
-          onClick={handleSetClick}
+       
           style={{ marginLeft: "15px" }}
          
         />
+       
+        
+        <div className="appbar-div">
+          
+          <AccountCircleIcon fontSize="large"
+           aria-describedby={id}
+           fontSize="medium"
+           onClick={handleSetClick}
+           style={{ marginLeft: "15px" }} />
+        </div>
         <Popover
         id={id}
         open={open}
@@ -161,29 +176,13 @@ const handleSearch = (searchValue) => {
           horizontal: "left"
         }}
       >
-        <Typography  sx={{ paddingLeft:2}}>Settings</Typography>
+        <Button  sx={{ paddingLeft:2}}  onClick={handleLogout}>Log Out</Button>
        
-        <Typography sx={{ paddingLeft:2 }} 
-       >
-          Enable Dark theme
-          </Typography> 
-        <Typography sx={{ paddingLeft:2 }}>Send Feedback</Typography> 
-        <Typography sx={{ paddingLeft:2 }}>Help</Typography>
-        <Typography sx={{ paddingLeft:2 }}>App Downloads</Typography>
-        <Typography sx={{ paddingLeft:2 }}>Keyboard Shortcuts</Typography>
       </Popover>
-       
-      
-        
-        
-        <div className="appbar-div">
-          
-          <AccountCircleIcon fontSize="large" />
-        </div>
         
       </Toolbar>
       
-     
+      {logout ? <Redirect to="/login" /> : null}
     </AppBar>
     
   );

@@ -3,7 +3,8 @@ import {
     Card,
     Typography,
     Button,
-    Box
+    Box,
+    CardMedia
 } from "@mui/material";
 import "../css/delete.css"
 import React from "react";
@@ -65,7 +66,16 @@ const DeleteNote = () => {
                                 key={
                                     item._id
                             }>
-                                <Card className="notesCard">
+                                <Card className="notesCard"
+                                 style={{background:item.color}}
+                                  >
+                                     <CardMedia
+                      component="img"
+                      image={`http://localhost:4000/images/${item.profileImg}`}
+                      alt="dish"style={{  maxwidth: 238,
+                        maxHeight: 238 }}
+                    /> 
+
                                     <Typography variant="h5">
                                         {
                                         item.title
@@ -89,7 +99,8 @@ const DeleteNote = () => {
                                             () => {
                                                 handleRestore(item)
                                             }
-                                        }/>
+                                        }
+                                        />
 
                                 </Card>
                         </Grid>

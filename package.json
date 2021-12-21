@@ -2,6 +2,9 @@
   "name": "fundoapp",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "14.17.6"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
@@ -9,6 +12,7 @@
     "axios": "^0.24.0",
     "chromedriver": "^96.0.0",
     "geckodriver": "^2.0.4",
+    "jest": "^26.6.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.6",

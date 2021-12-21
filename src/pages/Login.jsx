@@ -49,7 +49,7 @@ export const Login = () => {
 
     setuserError(false);
     setPasswordError(false);
-    // setPasswordConfirmError(false);
+    
 
     if (!validEmail.test(username)) setuserError(true);
     if (!validPassword.test(password)) setPasswordError(true);
@@ -57,7 +57,7 @@ export const Login = () => {
     loginusers(data);
     alert("Succefully Login");
     history.push('/Fundokeep');
-    // history.push('/Dashboard');
+   
     
   };
   return (
@@ -87,13 +87,9 @@ export const Login = () => {
                       ? "Invalid email"
                       : "You can use letters,numbers & periods"
                   }
-                  // fullWidth
+              
                   onChange={(e) => setusername(e.target.value)}
-                // InputProps={{
-                //   endAdornment: (
-                //     <InputAdornment position="end">@gmail.com</InputAdornment>
-                //   ),
-                // }}
+              
 
                 />
               </Box>
@@ -145,9 +141,7 @@ export const Login = () => {
             </div>
 
           </div>
-          {/* <div className="login-image-div">
-            <img className="login-image" src={image} style={{ verticalAlign: 'middle' }} />
-          </div> */}
+         
         </div>
       </div>
     </main>

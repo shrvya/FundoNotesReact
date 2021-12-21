@@ -1,5 +1,5 @@
 export const getToken = () => {
-  // console.log("gettoke"+sessionStorage.getItem('token'));
+ 
     return sessionStorage.getItem('token') || null;
   }
    
@@ -16,3 +16,4 @@ export const getToken = () => {
     sessionStorage.setItem('token', token);
 
   }
+  
