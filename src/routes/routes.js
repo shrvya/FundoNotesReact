@@ -1,11 +1,11 @@
 import { BrowserRouter as Router,  Route } from "react-router-dom";
-import {Registration} from '../src/pages/Registration'
-import {Login} from '../src/pages/Login'
-import { Forgot } from "./pages/Forgot";
-import {Reset} from "./pages/Reset";
-import Trash from "./pages/Trash";
+import {Registration} from '../pages/Registration'
+import {Login} from '../pages/Login'
+import { Forgot } from "../pages/Forgot";
+import {Reset} from "../pages/Reset";
+import Trash from "../pages/Trash";
 
-import {MiniDrawer} from "./pages/Fundokeep";
+import {MiniDrawer} from "../pages/Fundokeep";
 
 function Routes() {
   return (
