@@ -7,7 +7,7 @@ const token = getToken("token");
 
 let url;
 const notes = () => {
-   url = "http://localhost:4000/notes"
+   url = "https://backendfundoapp.herokuapp.com/notes"
    
     return getNotes(url, `bearer ${token}`).then((response) => {
         
@@ -17,7 +17,7 @@ const notes = () => {
     });
 };
 const create = (data) => {
-   url = "http://localhost:4000/notes"
+   url = "https://backendfundoapp.herokuapp.com/notes"
     return createNotes(url, data, `bearer ${token}`).then((response) => {
         return response
     }).catch((err) => {
@@ -26,7 +26,7 @@ const create = (data) => {
 }
 const update = (data,id) => {
     console.log(data);
-    url=`http://localhost:4000/notes/${id}`
+    url=`https://backendfundoapp.herokuapp.com/notes/${id}`
     return updateNotes(url, data, `bearer ${token}`).then((response) => {
         return response;
     }).catch((err) => {
@@ -35,7 +35,7 @@ const update = (data,id) => {
 }
 
 const Delete=(id)=>{
-    let url=`http://localhost:4000/notes/${id}`
+    let url=`https://backendfundoapp.herokuapp.com/notes/${id}`
     return deleteNotes(url, `bearer ${token}`).then((response) => {
         return response;
     }).catch((err) => {

@@ -23,11 +23,11 @@ async function example(){
      await driver.findElement(By.id("next-buttonp")).click();
     await driver.sleep(1000);
      //Verify the page title and print it
-    //  var title = await driver.getTitle();
-    //  console.log('Title is:',title);
+      var title = await driver.getTitle();
+      console.log('Title is:',title);
     var url = driver.getCurrentUrl();
     console.log(url);
-    //  Thread.sleep(3000);
+  Thread.sleep(3000);
      //It is always a safe practice to quit the browser after execution
      await driver.quit();
 
